@@ -2,7 +2,7 @@
 # Dislays Best School 10 times using until loop
 
 i=0
-until [ ! $i -lt 11 ]
+until [ ! $i -lt 10 ]
 do
     echo "Best School"
     ((i++))
