@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# installing nginx
+sudo apt update
+# installs nginx
+sudo apt-get -y install nginx
+# allow it run on port 80 which is 'Nginx HTTP'
+sudo ufw allow 'Nginx HTTP'
+# writes the text "Hellow World" to a file named index.html
+# located in /var/www/html/ directory
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo service nginx restart
+
+
+# /var/www/html/ is a commonly used directory in 
+# Unix-like operating systems, particularly in web server 
+# configurations like Apache or Nginx. It serves as the default
+#  root directory for web server content.
