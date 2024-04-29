@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+nginx_config="/etc/nginx/sites-available/default"
+
+sudo sed -i "/server_name _;/a \\
+error_page 404 /404.html; \\
+\\
+        location = /404.html { \\
+                internal; \\
+                root /var/www/html; \\
+        }" $nginx_config
