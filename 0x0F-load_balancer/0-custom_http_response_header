@@ -5,19 +5,19 @@ sudo apt update
 sudo apt-get -y install nginx
 # allow it run on port 80 which is 'Nginx HTTP'
 sudo ufw allow 'Nginx HTTP'
-# writes the text "Hellow World" to a file named index.html
-# located in /var/www/html/ directory
+# creating the index page
 echo "Hello World!" | sudo tee /var/www/html/index.html
+# creating a custom error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
 destination_url="https://www.youtube.com"
 nginx_config="/etc/nginx/sites-available/default"
+# performing redirection
 sudo sed -i "/server_name _;/a \\
 \\
         location /redirect_me { \\
                 return 301 $destination_url; \\
         }" $nginx_config
-
 sudo sed -i "/index index.html index.htm index.nginx-debian.html;/a \\
 \\
         error_page 404 /404.html; \\
@@ -27,13 +27,14 @@ sudo sed -i "/index index.html index.htm index.nginx-debian.html;/a \\
                 root /var/www/html; \\
         }" $nginx_config
 
+# custom HTTP response header
 sudo sed -i "/server_name _;/a \\
         add_header X-Served-By $HOSTNAME;" $nginx_config
-        
+# restart nginx       
 sudo service nginx restart
 
 
 # /var/www/html/ is a commonly used directory in 
 # Unix-like operating systems, particularly in web server 
 # configurations like Apache or Nginx. It serves as the default
-#  root directory for web server content.
+# root directory for web server content.
