@@ -27,7 +27,7 @@ sudo sed -i "/index index.html index.htm index.nginx-debian.html;/a \\
                 root /var/www/html; \\
         }" $nginx_config
 
-sudo sed -i "/server_name _/a \\
+sudo sed -i "/server_name _;/a \\
         add_header X-Served-By $HOSTNAME;" $nginx_config
         
 sudo service nginx restart
