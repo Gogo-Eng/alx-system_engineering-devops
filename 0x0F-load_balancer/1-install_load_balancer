@@ -13,17 +13,17 @@ sudo cp /etc/haproxy/haproxy.cfg etc-haproxy-haproxy.cfg.backup
 echo -e "Configuring HAproxy (Round Robin Algorithm) to send traffic to web-01 and web-02 servers...\n"
 haproxy_confg=\
 "
-frontend Leumars_frontend
+frontend frontman_frontend
     bind *:80  # Listen on port 80 of all interfaces
     mode http
-    default_backend Leumars_webservers  # Forward requests to webservers
+    default_backend frontman_web  # Forward requests to webservers
 
   # Define backend servers
-  backend Leumars_webservers
+  backend frontman_web
     balance roundrobin  # Use round-robin load balancing algorithm
 
-    server 495938-web-01   54.157.155.48:80 check
-    server 495938-web-02  100.26.171.101:80 check
+    server 420698-web-01 100.26.233.141 check
+    server 420698-web-02 100.25.2.227 check
 "
 
 echo "$haproxy_confg" | sudo tee -a /etc/haproxy/haproxy.cfg
