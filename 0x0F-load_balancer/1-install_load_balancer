@@ -2,27 +2,41 @@
 # bash script to install and configure HAproxy on lb-01 server
 
 #install HAproxy
-sudo apt-get update
-sudo apt-get install haproxy
+echo -e "Updating and installing HAproxy...\n"
+sudo apt-get update -y -qq && \
+    sudo apt-get install haproxy -y
 
 # create a backup of HAproxy configuration file
 sudo cp /etc/haproxy/haproxy.cfg etc-haproxy-haproxy.cfg.backup
 
 # configure HAproxy to send traffric to web-01 and web-02 servers
+echo -e "Configuring HAproxy (Round Robin Algorithm) to send traffic to web-01 and web-02 servers...\n"
 haproxy_confg=\
 "
-frontend frontman_frontend
-        bind *:80
-        mode http
-        default_backend frontman_web
+frontend Leumars_frontend
+    bind *:80  # Listen on port 80 of all interfaces
+    mode http
+    default_backend Leumars_webservers  # Forward requests to webservers
 
-backend frontman_web
-        balance roundrobin
+  # Define backend servers
+  backend Leumars_webservers
+    balance roundrobin  # Use round-robin load balancing algorithm
 
-        server 420698-web-01 100.26.233.141 check
-        server 420698-web-02 100.25.2.227 check
+    server 495938-web-01   54.157.155.48:80 check
+    server 495938-web-02  100.26.171.101:80 check
 "
+
 echo "$haproxy_confg" | sudo tee -a /etc/haproxy/haproxy.cfg
+
+# enable HAproxy to be started at boot time
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+
+# Test HAproxy configuration
+echo -e "Testing HAproxy configuration...\n"
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+
+# restart HAproxy
+echo -e "Restarting HAproxy...\n"
 sudo service haproxy restart
+
+echo -e "\nCompleted.\n"
