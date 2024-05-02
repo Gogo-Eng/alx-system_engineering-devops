@@ -19,8 +19,8 @@ frontend frontman_frontend
 backend frontman_web
         balance roundrobin
 
-        server 420698-web-01 100.26.233.141
-        server 420698-web-02 100.25.2.227
+        server 420698-web-01 100.26.233.141 check
+        server 420698-web-02 100.25.2.227 check
 "
 echo "$haproxy_confg" | sudo tee -a /etc/haproxy/haproxy.cfg
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
