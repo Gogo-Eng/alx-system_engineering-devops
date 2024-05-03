@@ -8,14 +8,14 @@ sudo apt-get install -y haproxy=1.8.\*
 
 echo \
 	"
-frontend localnodes
+frontend frontman_frontend
 	bind *:80
 	mode http
-	default_backend web_back
-backend web_back
+	default_backend frontman_web
+backend frontman_web
 	mode http
 	balance roundrobin
-	server 44456-web-01 54.221.180.0:80 check
-	server 44456-web-02 100.27.14.142:80 check" >> /etc/haproxy/haproxy.cfg
+	server 420698-web-01 100.26.233.141 check
+	server 420698-web-02 100.25.2.227 check" >> /etc/haproxy/haproxy.cfg
 
 sudo service haproxy restart
