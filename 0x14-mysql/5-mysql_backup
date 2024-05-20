@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # script that generates a MySQL dump and creates a compressed archive out of it.
 
 Archive=$(date "+%d-%m-%Y.tar.gz")
