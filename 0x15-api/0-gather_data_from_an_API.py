@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-a Python script that, using a REST API, for a given 
+a Python script that, using a REST API, for a given
 employee ID, returns information about his/her T
 ODO list progress.
 """
