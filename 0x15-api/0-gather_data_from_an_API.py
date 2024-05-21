@@ -35,10 +35,10 @@ def TODO_list(employee_id):
         if task["completed"] is True:
             completed_tasks.append(task['title'])
 
-    number_of_completed_tasks = len(completed_tasks)
-    total_number_of_tasks = len(todo_data)
+    nct = len(completed_tasks)
+    tnt = len(todo_data)
 
-    print(f"Employee {employee_name} is done with tasks({number_of_completed_tasks}/{total_number_of_tasks}):")
+    print(f"Employee {employee_name} is done with tasks({nct}/{tnt}):")
     for tasks in completed_tasks:
         print(f"\t {tasks}")
 
