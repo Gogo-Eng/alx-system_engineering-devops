@@ -10,12 +10,7 @@ import sys
 
 
 if __name__ == "__main__":
-    try:
-        employee_id = int(sys.argv[1])
-    except ValueError:
-        print("Please provide a valid integer as the employee ID.")
-        sys.exit(1)
-
+    employee_id = int(sys.argv[1])
     if len(sys.argv) != 2:
         print(f"Usage: python3 script.py {employee_id}")
 
