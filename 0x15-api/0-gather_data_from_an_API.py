@@ -1,28 +1,56 @@
 #!/usr/bin/python3
-'''Write a Python script that, using this REST API, for a given employee ID,
-returns information about his/her TODO list progress.'''
+"""
+a Python script that, using a REST API, for a given
+employee ID, returns information about his/her T
+ODO list progress.
+"""
 
-from requests import get
-from sys import argv
+import requests
+import sys
 
 
-if __name__ == '__main__':
-    user_id = argv[1]
-    url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
-    response = get(url)
-    name = response.json().get('name')
+def TODO_list(employee_id):
 
-    url = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(user_id)
-    response = get(url)
-    tasks = response.json()
-    done = 0
-    done_tasks = []
-    for task in tasks:
-        if task.get('completed'):
-            done_tasks.append(task)
-            done += 1
+    url = "https://jsonplaceholder.typicode.com/"
+    user_response = requests.get(f"{url}users/{employee_id}")
 
-    print("Employee {} is done with tasks({}/{}):"
-          .format(name, done, len(tasks)))
-    for task in done_tasks:
-        print("\t {}".format(task.get('title')))
+    if user_response.status_code != 200:
+        print("Unable to fetch user")
+        return
+
+    user_data = user_response.json()
+    employee_name = user_data['name']
+    if not employee_name:
+        print("Employee name not found")
+        return
+
+    todo_response = requests.get(f"{url}todos?userId={employee_id}")
+
+    if todo_response.status_code != 200:
+        print("Unable to fetch TODO data")
+        return
+    todo_data = todo_response.json()
+    completed_tasks = []
+    for task in todo_data:
+        if task["completed"] is True:
+            completed_tasks.append(task['title'])
+
+    nct = len(completed_tasks)
+    tnt = len(todo_data)
+
+    print(f"Employee {employee_name} is done with tasks({nct}/{tnt}):")
+    for tasks in completed_tasks:
+        print(f"\t {tasks}")
+
+
+if __name__ == "__main__":
+    try:
+        employee_id = int(sys.argv[1])
+    except ValueError:
+        print("Please provide a valid integer as the employee ID.")
+        sys.exit(1)
+
+    if len(sys.argv) != 2:
+        print(f"Usage: python3 script.py {employee_id}")
+
+    TODO_list(employee_id)
