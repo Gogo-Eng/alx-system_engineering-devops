@@ -1,30 +1,46 @@
 #!/usr/bin/python3
-''' Using what you did in the task #0, extend your Python script to export data
-in the JSON format.'''
+"""
+a Python script that, using a REST API, for all given
+employee ID, returns information about all employees
+TODO list progress and exports the data in the json format.
+"""
 
-from json import dump
-from requests import get
+import json
+import requests
 
 
-if __name__ == '__main__':
-    url = 'https://jsonplaceholder.typicode.com/'
-    user_response = get(f"{url}users/")
+def TODO_list():
+
+    url = "https://jsonplaceholder.typicode.com/"
+    user_response = requests.get(f"{url}users")
+
+    if user_response.status_code != 200:
+        print("Unable to fetch user")
+        return
+
     user_data = user_response.json()
 
-    dictionary = {}
+    data = {}
     for user in user_data:
-        user_id = user['id']
-        username = user['username']
-        todos_response = get(f"{url}users/{user_id}/todos/")
-        tasks = todos_response.json()
-        dictionary[user_id] = []
-        for task in tasks:
-            task_list = {
-                "username": username,
-                "task": task['title'],
-                "completed": task['completed'],
-                }
-            dictionary[user_id].append(task_list)
+        user_id = user["id"]
+        todo_response = requests.get(f"{url}users/{user_id}/todos")
+        todo_data = todo_response.json()
+        user_name = user["username"]
+        data[user_id] = []
 
-    with open('todo_all_employees.json', 'w') as file:
-        dump(dictionary, file)
+        for task in todo_data:
+            task_list = {
+                'username': user_name,
+                'task': task["title"],
+                'completed': task["completed"],
+                }
+            data[user_id].append(task_list)
+
+    filename = "todo_all_employees.json"
+    with open(filename, mode='w', encoding='utf-8') as file:
+        json.dump(data, file)
+    print(f"Data have been exported into {filename}")
+
+
+if __name__ == "__main__":
+    TODO_list()
