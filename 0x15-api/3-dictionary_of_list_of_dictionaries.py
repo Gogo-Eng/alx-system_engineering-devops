@@ -36,6 +36,6 @@ if __name__ == "__main__":
             data[user_id].append(task_list)
 
     filename = "todo_all_employees.json"
-    with open(filename, mode='w', encoding='utf-8') as file:
+    with open(filename, mode='w') as file:
         json.dump(data, file)
     print(f"Data have been exported into {filename}")
