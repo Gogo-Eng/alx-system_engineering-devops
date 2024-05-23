@@ -15,10 +15,9 @@ if __name__ == '__main__':
     for user in users:
         user_id = user['id']
         username = user['username']
-        url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
-        url = url + '/todos/'
-        response = get(url)
-        tasks = response.json()
+        users_response = 'https://jsonplaceholder.typicode.com/users/{}/'.format(user_id)
+        todos_response = get(f"{users_response}todos/")
+        tasks = todos_response.json()
         dictionary[user_id] = []
         for task in tasks:
             task_list = {
