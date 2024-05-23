@@ -13,8 +13,8 @@ if __name__ == '__main__':
 
     dictionary = {}
     for user in users:
-        user_id = user.get('id')
-        username = user.get('username')
+        user_id = user['id']
+        username = user['username']
         url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
         url = url + '/todos/'
         response = get(url)
@@ -23,8 +23,8 @@ if __name__ == '__main__':
         for task in tasks:
             task_list = {
                 "username": username,
-                "task": task.get('title'),
-                "completed": task.get('completed'),
+                "task": task['title'],
+                "completed": task['completed'],
                 }
             dictionary[user_id].append(task_list)
 
