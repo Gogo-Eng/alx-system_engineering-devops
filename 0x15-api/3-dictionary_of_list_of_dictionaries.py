@@ -31,10 +31,10 @@ def TODO_list():
 
         for task in todo_data:
             task_list = {
-                'username': user_name,
-                'task': task["title"],
-                'completed': task["completed"],
-            }
+                        'username': user_name,
+                        'task': task["title"],
+                        'completed': task["completed"],
+                        }
             data[user_id].append(task_list)
 
     filename = "todo_all_employees.json"
