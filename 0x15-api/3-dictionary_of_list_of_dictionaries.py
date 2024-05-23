@@ -34,14 +34,14 @@ def TODO_list():
         user_name = user["username"]
         data[user_id] = []
 
-    for task in todo_data:
-        user_id = task["userId"]
-        task_list = {
-            'username': user_name,
-            'task': task["title"],
-            'completed': task["completed"],
-        }
-        data[user_id].append(task_list)
+        for task in todo_data:
+            if user_id == task["userId"]:
+                task_list = {
+                    'username': user_name,
+                    'task': task["title"],
+                    'completed': task["completed"],
+                    }
+                data[user_id].append(task_list)
 
     filename = "todo_all_employees.json"
     with open(filename, mode='w', encoding='utf-8') as file:
