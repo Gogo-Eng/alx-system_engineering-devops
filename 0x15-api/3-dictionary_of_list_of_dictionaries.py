@@ -9,14 +9,13 @@ import json
 import requests
 
 
-def TODO_list():
+if __name__ == "__main__":
 
     url = "https://jsonplaceholder.typicode.com/"
     user_response = requests.get(f"{url}users")
 
     if user_response.status_code != 200:
         print("Unable to fetch user")
-        return
 
     user_data = user_response.json()
 
@@ -40,7 +39,3 @@ def TODO_list():
     with open(filename, mode='w', encoding='utf-8') as file:
         json.dump(data, file)
     print(f"Data have been exported into {filename}")
-
-
-if __name__ == "__main__":
-    TODO_list()
