@@ -37,11 +37,11 @@ def TODO_list():
 
         todo_list = [todo for todo in todo_data if todo["userId"] == user_id]
         for task in todo_list:
-            task_list = [{
+            task_list = {
                 'username': user_name,
                 'task': task["title"],
                 'completed': task["completed"],
-            }]
+            }
             data[user_id].append(task_list)
 
     filename = "todo_all_employees.json"
