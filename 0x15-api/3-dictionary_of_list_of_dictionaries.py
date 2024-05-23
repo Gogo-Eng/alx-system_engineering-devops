@@ -7,16 +7,15 @@ from requests import get
 
 
 if __name__ == '__main__':
-    url = 'https://jsonplaceholder.typicode.com/users/'
-    response = get(url)
-    users = response.json()
+    url = 'https://jsonplaceholder.typicode.com/'
+    user_response = get(f"{url}users/")
+    user_data = user_response.json()
 
     dictionary = {}
-    for user in users:
+    for user in user_data:
         user_id = user['id']
         username = user['username']
-        users_response = 'https://jsonplaceholder.typicode.com/users/{}/'.format(user_id)
-        todos_response = get(f"{users_response}todos/")
+        todos_response = get(f"{url}users/{user_id}/todos/")
         tasks = todos_response.json()
         dictionary[user_id] = []
         for task in tasks:
