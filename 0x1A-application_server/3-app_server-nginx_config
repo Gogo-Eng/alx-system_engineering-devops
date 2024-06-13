@@ -36,7 +36,7 @@ server {
                 root /var/www/html;
         }
 
-        server_name _;
+        server_name 54.224.117.210;
         add_header X-Served-By 420698-web-01;
 
         location /redirect_me {
